@@ -17,7 +17,7 @@ _____
 _____
 
 ## Proyecto de Sitio Web para una Tienda de productos por Departamento 
-### Instrucciones Generales. 
+### Instrucciones Generales
 * El proyecto debe realizarlo de forma individual sin la colaboración de otra persona. 
 * Podrá utilizar Bases de Datos relacionales (MySQL, Postgress) 
 * Podra utilizar el servidor de aplicaciones de su preferencia (nginx, IIS, Tomcat, Apache, ...) 
@@ -26,16 +26,17 @@ _____
 * Deberá desarrollar al menos un servicio web que por medio de Ajax lo pueda invocar y obtener información en json para el despliegue de datos correspondiente. 
 * La interfaz del sitio debe ser visualmente atractiva, puede utilizar bootstrap. 
 * Debe de trabajar el proyecto en capas (Interfaz, lógica y acceso a los datos) 
-### Detalles del proyecto: 
+### Detalles del proyecto
 Debe diseñar una base de datos que contenga las siguientes tablas: 
-1. Usuario
-2. Categoría de Productos (debe haber eliminación en cascada de productos) 
-3. Productos 
+  1. Usuario
+  2. Categoría de Productos (debe haber eliminación en cascada de productos) 
+  3. Productos 
 
 Debe diseñar un sitio web que contenga los siguientes módulos: 
-4. Pantalla de Login 
-5. Mantenimiento de Categorías 
-6. Mantenimiento de Productos 
+   1. Pantalla de Login 
+   2. Mantenimiento de Categorías 
+   3. Mantenimiento de Productos 
+   
 - Para el Login, deberá poder crearse el usuario si es primer ingreso y guardar la contraseña encriptada en la base de datos.
 - Para el mantenimiento de productos se deberá hacer una lista de los mismos por categoría. Debe haber una búsqueda de productos por el campo de descripción. 
 - De la lista debe tener una opción para mostrar el detalle de un producto, incluyendo una imagen del mismo.
@@ -67,3 +68,81 @@ Para el repositorio de fuentes debe crear un proyecto público en GitHub, donde 
   * La fusión de los cambios de la rama de revisión en la rama de desarrollo es fundamental para garantizar que la corrección persista la próxima vez que se publique la rama principal.
 
 ![Workflow](https://bezkoder.com/wp-content/uploads/2019/12/spring-boot-vue-js-crud-example-architecture.png)
+
+______
+## Desarrollo
+### Configuracion de desarrollo 
+1. Editor de Texto 
+   1. Visual Studio Code
+2. Extensiones
+   1. Java Managment Projects
+   2. Spring Book
+   3. Lombok Anotations
+   4. Vetur
+
+### Flujo de desarrollo
+#### Instalacion de dependencias
+1. Crear un proyecto en Spring Boot con el Spring Initializr desde VSCode y llamarlo backend (alternativa a hacerlo en [Spring Boot](https://start.spring.io/))
+2. Instalar yarn para el frontend
+   ```
+   npm i -g yarn
+   ```
+3. Iniciar yarn
+   ```
+   yarn init -y
+   ```
+4. Instalar dependencias del **frontend**
+   ```
+   yarn add nuxt @nuxtjs/axios @nuxtjs/vuetify
+   ```
+5. Instalar dependencias del **backend**
+   1. Ir al archivo pom.xml y con click derecho seleccionar **Add Starter**
+      1. Spring Boot Web
+      2. Mysql Driver SQL
+      3. Spring Data JPA SQL 
+      4. Lombook
+
+### DataBase 
+#### Configuración previa de Docker
+1. Crear el volumen externo
+  ```
+  docker volume create --name=mysql-volume
+  ```
+
+#### Validar la correcta ejecucion de postgresql dockerizado
+
+1. Ejecutar el contenedor
+  ```
+  docker-compose up -d
+  ```
+
+2. Entrar al contenedor de mysql
+  ```
+  docker-compose exec mysql bash
+  ```
+
+3. Conectarse a mysql:
+  ```
+  mysql -h nombre_servidor -u nombre_usuario -p nombre_base_datos
+
+  mysql -h localhost -u admin -p productsApp
+  ```
+
+
+  * Conectarse a mysql con el usuario root y cambiar zona horaria
+  ```
+  docker exec -it ProductsApp mysql -uroot -p 
+
+  pass: admin
+
+  Cambiar zona horaria: SET GLOBAL time_zone = '-6:00';
+  ```
+#### Backend
+1. Crear un paquete y sus clases para cada entidad identificada
+   1. Usuario
+      1. Usuario
+      2. Controlador de Usuario
+      3. Repositorio de Usuario
+   2. Producto
+   3. Categoria
+
