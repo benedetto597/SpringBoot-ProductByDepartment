@@ -101,18 +101,28 @@ ______
       2. Mysql Driver SQL
       3. Spring Data JPA SQL 
       4. Lombook
-
+   
 ### DataBase 
 #### Configuración previa de Docker
-1. Crear el volumen externo
+1. En los recursos del proyecto de java
+  ```
+  spring.datasource.username=admin
+  spring.datasource.password=admin
+  spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+  spring.datasource.url=jdbc:mysql://localhost:3306/productsApp
+  spring.jpa.generate-ddl=true
+  ```
+2. Crear el volumen externo
   ```
   docker volume create --name=mysql-volume
   ```
 
-#### Validar la correcta ejecucion de postgresql dockerizado
+#### Validar la correcta ejecucion de mysql dockerizado
 
 1. Ejecutar el contenedor
   ```
+  docker run --name mysqldb -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_DATABASE=productsApp -d -p 3306:3306 mysql
+
   docker-compose up -d
   ```
 
