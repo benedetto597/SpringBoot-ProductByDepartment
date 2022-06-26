@@ -7,6 +7,7 @@
     "start": "nuxt"
   },
   "dependencies": {
+    "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/vuetify": "^1.12.3",
     "nuxt": "^2.15.8"
