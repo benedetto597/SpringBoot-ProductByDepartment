@@ -83,34 +83,32 @@ ______
 ### Flujo de desarrollo
 #### Instalacion de dependencias
 1. Crear un proyecto en Spring Boot con el Spring Initializr desde VSCode y llamarlo backend (alternativa a hacerlo en [Spring Boot](https://start.spring.io/))
-2. Instalar yarn para el frontend
+2. Instalar dependencias del **frontend** y crear aplicacion con nuxt
    ```
-   npm i -g yarn
+   npx create-nuxt-app my-app
    ```
-3. Iniciar yarn
-   ```
-   yarn init -y
-   ```
-4. Instalar dependencias del **frontend**
-   ```
-   yarn add nuxt @nuxtjs/axios @nuxtjs/vuetify
-   ```
-5. Instalar dependencias del **backend**
-   1. Ir al archivo pom.xml y con click derecho seleccionar **Add Starter**
-      1. Spring Boot Web
-      2. Mysql Driver SQL
-      3. Spring Data JPA SQL 
-      4. Lombook
+3. Instalar dependencias del **backend** en el archivo pom.xml con click derecho seleccionar **Add Starter**
+  1. Spring Boot Web
+  2. Mysql Driver SQL
+  3. Spring Data JPA SQL 
+  4. Lombook
    
 ### DataBase 
 #### Configuración previa de Docker
 1. En los recursos del proyecto de java
   ```
-  spring.datasource.username=admin
+  #Mysql
+  spring.datasource.username=admin 
   spring.datasource.password=admin
   spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-  spring.datasource.url=jdbc:mysql://localhost:3306/productsApp
-  spring.jpa.generate-ddl=true
+  spring.datasource.url=jdbc:mysql://localhost:3306/productsApp?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+  #JPA
+  spring.jpa.generate-ddl=false
+  spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+  spring.jpa.show-sql=true
+  #Table names physically
+  spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  spring.jpa.hibernate.use-new-id-generator-mappings=false
   ```
 2. Crear el volumen externo
   ```
