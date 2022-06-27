@@ -27,5 +27,10 @@ public class ServCategory {
     public void deleteCategory(int id) {
         repoCategory.deleteById(id);
     }
+
+    public void updateCategory(int id, Category category) {
+        this.deleteCategory(id);
+        repoCategory.save(category);
+    }
     
 }

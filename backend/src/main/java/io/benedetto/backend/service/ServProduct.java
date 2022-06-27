@@ -27,5 +27,10 @@ public class ServProduct {
     public void deleteProduct(int id) {
         repoProduct.deleteById(id);
     }
+
+    public void updateProduct(int id, Product product) {
+        this.deleteProduct(id);
+        repoProduct.save(product);
+    }
     
 }

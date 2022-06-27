@@ -27,5 +27,10 @@ public class ServUser {
     public void deleteUser(int id) {
         repoUser.deleteById(id);
     }
+
+    public void updateUser(int id, User user) {
+        this.deleteUser(id);
+        repoUser.save(user);
+    }
     
 }
