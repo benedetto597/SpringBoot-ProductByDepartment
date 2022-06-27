@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://ozenero.com/wp-content/uploads/2018/09/vue-spring-boot-mysql-feature-image.jpg" width=400px"> </img> 
+    <img src="https://www.armadilloamarillo.com/wp-content/uploads/spring-boot-ok.png" width=400px"> </img> 
     
 <!-- Encabezado -->
 ## Prueba técnica | Productos por departamento
@@ -145,12 +145,4 @@ ______
 
   Cambiar zona horaria: SET GLOBAL time_zone = '-6:00';
   ```
-#### Backend
-1. Crear un paquete y sus clases para cada entidad identificada
-   1. Usuario
-      1. Usuario
-      2. Controlador de Usuario
-      3. Repositorio de Usuario
-   2. Producto
-   3. Categoria
 
