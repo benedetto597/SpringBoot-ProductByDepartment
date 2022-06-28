@@ -39,9 +39,19 @@ public class Controllers {
         return "register";
     }
 
-    @GetMapping("/category") 
-    public String category() {
-        return "category";
+    @GetMapping("/categories") 
+    public String categories() {
+        return "categories";
+    }
+
+    @GetMapping("/users") 
+    public String users() {
+        return "users";
+    }
+
+    @GetMapping("/products") 
+    public String products() {
+        return "products";
     }
 
     // Producto //
