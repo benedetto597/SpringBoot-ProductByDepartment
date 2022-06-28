@@ -83,16 +83,15 @@ ______
 ### Flujo de desarrollo
 #### Instalacion de dependencias
 1. Crear un proyecto en Spring Boot con el Spring Initializr desde VSCode y llamarlo backend (alternativa a hacerlo en [Spring Boot](https://start.spring.io/))
-2. Instalar dependencias del **frontend** al crear aplicacion con vue
+2. Instalar dependencias del **frontend** y crear aplicacion con nuxt
    ```
-   vue create frontend
+   npx create-nuxt-app my-app
    ```
 3. Instalar dependencias del **backend** en el archivo pom.xml con click derecho seleccionar **Add Starter**
   1. Spring Boot Web
   2. Mysql Driver SQL
   3. Spring Data JPA SQL 
   4. Lombook
-  5. 
    
 ### DataBase 
 #### Configuración previa de Docker
