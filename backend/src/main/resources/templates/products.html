@@ -35,8 +35,8 @@
                         </li>
                     </ul>
                     <form class="form-inline my-2 mx-2 my-lg-0" v-on:submit.prevent="getFilteredProducts">
-                        <input class="form-control mr-sm-2" type="search" id="search_input" placeholder="Product Description"
-                            aria-label="Search">
+                        <input class="form-control mr-sm-2" type="search" id="search_input"
+                            placeholder="Product Description" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
                     <div class="text-end">
@@ -106,24 +106,35 @@
                 <br><br>
 
                 <figure class="text-center">
-                    <h2 class="h2">All Products</h2>
+                    <div class="row mx-auto">
+                        <h3 class="col col-sm-6 h3">Filter Products By Category</h3>
+                        <select class="form-control col-sm-5" id="category" @change="OnChange" v-model="category_filter" placeholder="Category">
+                            <option value="">All Categories</option>
+                            <option :v-bind:value="category.id" v-for="category in categories">{{
+                                        category.name }}
+                            </option>
+                        </select>
+                    </div>
+
                 </figure>
                 <div class="row">
                     <div class="col" v-for="product in products">
-                        <div class="card mt-3" style="width: 18rem;">
+                        <div class="card mt-3 mx-auto" style="width: 18rem;">
                             <!-- <img src="..." class="card-img-top" alt="..."> -->
-                            <div aria-controls="productForm" aria-expanded="false" class="card-header" :data-target="'#productDetail' + product.id" data-toggle="collapse" style="cursor: pointer">
-                                <div class="float-left card-title">{{ product.name }}</div>
+                            <div aria-controls="productForm" aria-expanded="false" class="card-header"
+                                :data-target="'#productDetail' + product.id" data-toggle="collapse"
+                                style="cursor: pointer">
+                                <div class="float-left card-title"><strong>{{ product.name }}</strong></div>
                                 <div class="float-right">▼</div>
                             </div>
-                                <div class="card card-body collapse" :id="'productDetail' + product.id">
-                                    <p class="card-text"><strong>Description </strong>{{ product.description }}</p>
-                                    <p class="card-text"><strong>Price </strong>L {{ product.price }}</p>
-                                    <p class="card-text"><strong>Quantity </strong>{{ product.quantity }}</p>
-                                    <p class="card-text"><strong>Category </strong>{{ product.category.name }}</p>
-                                </div>
-                                <button class="btn btn-primary m-2" v-on:click="editProduct(product)">Edit</button>
-                                <button class="btn btn-danger m-2" v-on:click="deleteProduct(product)">Delete</button>
+                            <div class="card card-body collapse" :id="'productDetail' + product.id">
+                                <p class="card-text"><strong>Description </strong>{{ product.description }}</p>
+                                <p class="card-text"><strong>Price </strong>L {{ product.price }}</p>
+                                <p class="card-text"><strong>Quantity </strong>{{ product.quantity }}</p>
+                                <p class="card-text"><strong>Category </strong>{{ product.category.name }}</p>
+                            </div>
+                            <button class="btn btn-primary m-2" v-on:click="editProduct(product)">Edit</button>
+                            <button class="btn btn-danger m-2" v-on:click="deleteProduct(product)">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -174,24 +185,39 @@
                     product: null,
                     filtered_products: [],
                     categories: null,
+                    category_filter: null,
+                    prods: null,
                 }
             },
             mounted() {
                 this.getProducts();
             },
             methods: {
+                OnChange(event){
+                    this.filtered_products = [];
+                    if (this.category_filter == null || this.category_filter == '' || this.category_filter == 'All Categories') {
+                        this.products = this.prods;
+                    } else {
+                        for (var i = 0; i < this.prods.length; i++) {
+                            if (this.prods[i].category.name.includes(this.category_filter)) {
+                                this.filtered_products.push(this.prods[i]);
+                            }
+                        }
+                        this.products = this.filtered_products;
+                    }
+                },
                 getFilteredProducts() {
                     this.filtered_products = [];
                     search_input = document.getElementById('search_input');
                     search_btn = document.getElementById('search_btn');
 
                     if (search_input.value == '') {
-                        this.products = this.getProducts();
+                        this.products = this.prods;
                     } else {
-                        for (var i = 0; i < this.products.length; i++) {
-                            if (this.products[i].description.toLowerCase().includes(search_input.value
+                        for (var i = 0; i < this.prods.length; i++) {
+                            if (this.prods[i].description.toLowerCase().includes(search_input.value
                                     .toLowerCase())) {
-                                this.filtered_products.push(this.products[i]);
+                                this.filtered_products.push(this.prods[i]);
                             }
                         }
                         this.products = this.filtered_products;
@@ -200,7 +226,7 @@
                 getProducts: function () {
                     axios
                         .get("/api/product/getAllProducts")
-                        .then(response => (this.products = response.data));
+                        .then(response => (this.products = response.data, this.prods = response.data));
                     axios
                         .get("/api/category/getAllCategories")
                         .then(response => (this.categories = response.data));
@@ -209,7 +235,7 @@
                     axios
                         .get("/api/product/getProductById/" + product.id)
                         .then(response => (this.product = response.data));
-                    
+
                 },
                 postProduct: function (event) {
                     // Creating
