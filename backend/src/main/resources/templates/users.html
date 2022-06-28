@@ -2,133 +2,225 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="ISO-8859-1" content="text/html; charset=UTF-8">
-    <title>Products</title>
-    <!-- CSS only -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<meta charset="ISO-8859-1" content="text/html; charset=UTF-8">
+	<title>Users</title>
+	<!-- CSS only -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-            <img class="mx-3"
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Mastercard_2019_logo.svg/1200px-Mastercard_2019_logo.svg.png"
-                alt="" width="90" height="50">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
-                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/categories}">Categories<span
-                                class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/products}">Products<span class="sr-only"></span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/users}">Users<span class="sr-only"></span></a>
-                    </li>
-                </ul>
-                <!-- <form class="form-inline my-2 mx-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form> -->
-                <div class="text-end">
-                    <a type="button" class="btn btn-danger me-2" data-toggle="modal" data-target="#SignOff">Sing Off</a>
-                    <!-- <a type="button" class="btn btn-danger me-2" th:href="@{/}">Login</a> -->
-                    <!-- <a type="button" class="btn btn-danger" th:href="@{/register}">Sign Up</a> -->
-                </div>
-            </div>
-        </nav>
-    </header>
-    <main class="form-signin w-60 m-auto">
-        <div class="container mx-auto">
-            <form style="margin-top:7rem">
-                <div class="card mb-auto">
-                    <div aria-controls="userForm" aria-expanded="false" class="card-header" data-target="#userForm"
-                        data-toggle="collapse" style="cursor: pointer">
-                        <div class="float-left">New/Edit Category</div>
-                        <div class="float-right">▼</div>
-                    </div>
-                    <div class="card card-body collapse" id="userForm">
-                        <div class="form-group row">
-                            <label for="name" class="col-sm-4 col-form-label">Name</label>
-                            <input class="form-control col-sm-8" id="name" placeholder="First Name" type="text" />
-                        </div>
-                        <div class="form-group row">
-                            <label for="description" class="col col-sm-4">Description</label>
-                            <input class="form-control col-sm-8" id="description" placeholder="Food Category"
-                                type="text" />
-                        </div>
-                        <div class="form-group row">
-                            <div class="col col-sm-4"></div>
-                            <input class="btn btn-primary col col-sm-4" type="submit" value="Save">
-                            <div class="col col-sm-4"></div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+			<img class="mx-3"
+				src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Mastercard_2019_logo.svg/1200px-Mastercard_2019_logo.svg.png"
+				alt="" width="90" height="50">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+				aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+					<li class="nav-item active">
+						<a class="nav-link" th:href="@{/categories}">Categories<span
+								class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" th:href="@{/products}">Products<span class="sr-only"></span></a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" th:href="@{/users}">Users<span class="sr-only"></span></a>
+					</li>
+				</ul>
+				<div class="text-end">
+					<a type="button" class="btn btn-danger me-2" data-toggle="modal" data-target="#SignOff">Sing Off</a>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<main class="form-signin w-60 m-auto" id="main">
+		<div class="container mx-auto">
+			<form style="margin-top:7rem" v-on:submit.prevent="postUser">
+				<div class="card mb-auto">
+					<div aria-controls="userForm" aria-expanded="false" class="card-header"
+						data-target="#userForm" data-toggle="collapse" style="cursor: pointer">
+						<div class="float-left">New/Edit User</div>
+						<div class="float-right">▼</div>
+					</div>
+					<div class="card card-body collapse" id="userForm">
+						<div class="form-group row">
+							<label for="name" class="col-sm-4 col-form-label">Name</label>
+							<input id="id" type="hidden" v-model="user_id">
+							<input class="form-control col-sm-8" id="name" placeholder="Edgar" type="text"
+								v-model="user_name" />
+						</div>
+						<div class="form-group row">
+							<label for="last_name" class="col col-sm-4">Last Name</label>
+							<input class="form-control col-sm-8" id="last_name" placeholder="Benedetto"
+								type="text" v-model="user_last_name" />
+						</div>
+						<div class="form-group row">
+							<label for="email" class="col col-sm-4">Email</label>
+							<input class="form-control col-sm-8" id="email" placeholder="example@mail.com"
+								type="email" v-model="user_email" />
+						</div>
+						<div class="form-group row">
+							<label for="password" class="col col-sm-4">Password</label>
+							<input class="form-control col-sm-8" id="password" placeholder="Password"
+								type="password" v-model="user_password"/>
+						</div>
+						<div class="form-group row">
+							<div class="col col-sm-4"></div>
+							<input class="btn btn-primary col col-sm-4" type="submit" value="Save">
+							<div class="col col-sm-4"></div>
+						</div>
+					</div>
+				</div>
+			</form>
 
-            <br><br>
+			<br><br>
+			<figure class="text-center">
+				<h2 class="h2">All Users</h2>
+			</figure>
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Last Name</th>
+						<th>Email</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="user in users">
+						<td>{{ user.name }}</td>
+						<td>{{ user.last_name }}</td>
+						<td>{{ user.email }}</td>
+						<td>
+							<button class="btn btn-primary" v-on:click="editUser(user)">Edit</button>
+							<button class="btn btn-danger" v-on:click="deleteUser(user)">Delete</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="SignOff" tabindex="-1" role="dialog" aria-labelledby="SignOffLabel"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="SignOffLabel">Sign Off</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						Are you sure you want to sign off?
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+						<a th:href="@{/}"> <button type="button" class="btn btn-primary">Yes</button> </a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
 
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Role</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="user in users">
-                        <td>{{ user.firstName }}</td>
-                        <td>{{ user.lastName }}</td>
-                        <td>{{ user.role.name }}</td>
-                        <td>
-                            <button class="btn btn-primary" v-on:click="editUser(user)">Edit</button>
-                            <button class="btn btn-danger" v-on:click="deleteUser(user)">Delete</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <!-- Modal -->
-        <div class="modal fade" id="SignOff" tabindex="-1" role="dialog" aria-labelledby="SignOffLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="SignOffLabel">Sign Off</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Are you sure you want to sign off?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                        <a th:href="@{/}"> <button type="button" class="btn btn-primary">Yes</button> </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-    <!-- JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
-    </script>
+	<!-- Vue imports -->
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+	<!-- Actual Vue.js script -->
+	<script>
+		var app = new Vue({
+			el: '#main',
+			data() {
+                return {
+                user_id: null,
+                user_name: null,
+                user_last_name: null,
+                user_email: null,
+                user_password: null,
+                users: null,
+                }
+            },
+			mounted() {
+				this.getUsers();
+			},
+			methods: {
+				getUsers: function () {
+					axios
+						.get("/api/user/getAllUsers")
+						.then(response => (this.users = response.data));
+				},
+				postUser: function (event) {
+					// Creating
+					if (this.user_id == '' || this.user_id == null) {
+						axios
+							.post("/api/user/createUser", {
+								"name": this.user_name,
+								"last_name": this.user_last_name,
+                                "email": this.user_email,
+                                "password": this.user_password,
+                            })
+                                .then(savedUser => {
+                                this.user_name = '';
+                                this.user_last_name = '';
+                                this.user_email = '';
+                                this.user_password = '';
+                                this.user_id = '';
+                                this.getUsers();
+                            })
+					} else { // Updating
+						axios
+							.put("/api/user/updateUser/" + this.user_id, {
+								"name": this.user_name,
+								"last_name": this.user_last_name,
+                                "email": this.user_email,
+                                "password": this.user_password,
+							})
+							.then(savedUser => {
+								this.getUsers();
+								this.user_name = '';
+                                this.user_last_name = '';
+                                this.user_email = '';
+                                this.user_password = '';
+								this.user_id = '';
+							})
+					}
+				},
+				editUser: function (user) {
+					this.user_id = user.id;
+					this.user_name = user.name;
+					this.user_last_name = user.last_name;
+					this.user_email = user.email;
+					this.user_password = user.password;
+					document.getElementById('userForm')
+						.setAttribute("class", document.getElementById('userForm').getAttribute("class") +
+							" show");
+				},
+				deleteUser: async function (user) {
+					await axios
+						.delete("/api/user/deleteUser/" + user.id);
+					this.getUsers();
+				}
+			}
+		})
+	</script>
+
+
+	<!-- JS, Popper.js, and jQuery -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+	</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
+	</script>
 </body>
 
 </html>

@@ -7,7 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+// import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "PRODUCT")
@@ -22,7 +22,6 @@ public class Product {
     private String image;
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @JsonBackReference
     private Category category;
 
     public Product() {}

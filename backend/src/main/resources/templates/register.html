@@ -21,58 +21,93 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <div class="navbar-nav mr-auto mt-2 mt-lg-0">
           <!-- <li class="nav-item active">
               <a class="nav-link" href="#">Categories <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="#">Products<span class="sr-only"></span></a>
             </li> -->
-        </ul>
-        <!-- <form class="form-inline my-2 mx-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form> -->
+        </div>
         <div class="text-end">
           <a type="button" class="btn btn-danger me-2" th:href="@{/}">Login</a>
-          <a type="button" class="btn btn-danger" th:href="@{/register}">Sign Up</a>
+          <a type="button" class="btn btn-danger" th:href="@{/register}">Register</a>
         </div>
       </div>
     </nav>
   </header>
-  <main class="form-signin w-100 m-auto">
-    <form th:action="@{/user/createUser}" method="post">
+  <main class="form-signin w-100 m-auto" id="main">
+    <form v-on:submit.prevent="postUser" method="post">
       <div class="card m-auto p-auto" style="width: 25rem; border: none; padding-top: 5rem;">
         <h2 class="card-title h3 mb-3 fw-normal m-auto pb-3">Register</h2>
-
         <div class="form-floating">
           <div class="row">
             <div class="col-md-6">
               <div class="form-floating">
-                <input type="text" class="form-control" id="name" name="name" placeholder="Juan">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Juan" v-model="user_name">
                 <label for="name">Name</label>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-floating">
-                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Juan">
+                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Juan"
+                  v-model="user_last_name">
                 <label for="last_name">Last Name</label>
               </div>
             </div>
           </div>
         </div>
         <div class="form-floating">
-          <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+          <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com"
+            v-model="user_email">
           <label for="email">Email address</label>
         </div>
         <div class="form-floating">
-          <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+          <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+            v-model="user_password">
           <label for="password">Password</label>
         </div>
         <button class="w-100 btn btn-lg btn-danger" type="submit">Sign up</button>
     </form>
     </div>
   </main>
+
+  <!-- Vue imports -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <!-- Actual Vue.js script -->
+  <script>
+    var app = new Vue({
+      el: '#main',
+      data() {
+        return {
+          user_name: null,
+          user_last_name: null,
+          user_email: null,
+          user_password: null,
+        }
+      },
+      methods: {
+        postUser: function (event) {
+          axios
+            .post("/api/user/createUser", {
+              "name": this.user_name,
+              "last_name": this.user_last_name,
+              "email": this.user_email,
+              "password": this.user_password,
+            })
+            .then(savedCategory => {
+              this.user_name = '';
+              this.user_last_name = '';
+              this.user_email = '';
+              this.user_password = '';
+            })
+        }
+      }
+    })
+  </script>
+
   <!-- JS, Popper.js, and jQuery -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
