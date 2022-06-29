@@ -24,14 +24,14 @@
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         <li class="nav-item active">
-                            <a class="nav-link" th:href="@{/categories}">Categories<span
+                            <a class="nav-link" th:href="@{/api/auth/categories}">Categories<span
                                     class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" th:href="@{/products}">Products<span class="sr-only"></span></a>
+                            <a class="nav-link" th:href="@{/api/auth/products}">Products<span class="sr-only"></span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" th:href="@{/users}">Users<span class="sr-only"></span></a>
+                            <a class="nav-link" th:href="@{/api/auth/users}">Users<span class="sr-only"></span></a>
                         </li>
                     </ul>
                     <form class="form-inline my-2 mx-2 my-lg-0" v-on:submit.prevent="getFilteredProducts">
@@ -80,7 +80,7 @@
                             </div>
                             <div class="form-group row">
                                 <label for="image" class="col col-sm-4">Image</label>
-                                <input class="form-control col-sm-8" id="image" placeholder="Video game console"
+                                <input class="form-control col-sm-8" id="image" placeholder="/img/product.png"
                                     maxlength="100" type="text" v-model="product_image" />
                             </div>
                             <div class="form-group row">
@@ -156,7 +156,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                            <a th:href="@{/}"> <button type="button" class="btn btn-primary">Yes</button> </a>
+                            <a th:href="@{/}"> <button type="button" class="btn btn-primary" v-on:click="SignOut()">Yes</button> </a>
                         </div>
                     </div>
                 </div>
@@ -193,6 +193,11 @@
                 this.getProducts();
             },
             methods: {
+                SignOut: function() {
+					axios
+						.post('/api/auth/signout')
+						.then(response => (console.log(response.data)));
+				},
                 OnChange(event){
                     this.filtered_products = [];
                     if (this.category_filter == null || this.category_filter == '' || this.category_filter == 'All Categories') {
@@ -225,15 +230,15 @@
                 },
                 getProducts: function () {
                     axios
-                        .get("/api/product/getAllProducts")
+                        .get("/api/auth/product/getAllProducts")
                         .then(response => (this.products = response.data, this.prods = response.data));
                     axios
-                        .get("/api/category/getAllCategories")
+                        .get("/api/auth/category/getAllCategories")
                         .then(response => (this.categories = response.data));
                 },
                 getProductById: function (product) {
                     axios
-                        .get("/api/product/getProductById/" + product.id)
+                        .get("/api/auth/product/getProductById/" + product.id)
                         .then(response => (this.product = response.data));
 
                 },
@@ -242,7 +247,7 @@
                     category = this.categories.find(category => category.id == this.product_category_id);
                     if (this.product_id == '' || this.product_id == null) {
                         axios
-                            .post("/api/product/createProduct", {
+                            .post("/api/auth/product/createProduct", {
                                 "name": this.product_name,
                                 "description": this.product_description,
                                 "price": this.product_price,
@@ -262,7 +267,7 @@
                             })
                     } else { // Updating
                         axios
-                            .put("/api/product/updateProduct/" + this.product_id, {
+                            .put("/api/auth/product/updateProduct/" + this.product_id, {
                                 "name": this.product_name,
                                 "description": this.product_description,
                                 "price": this.product_price,
@@ -297,7 +302,7 @@
                 },
                 deleteProduct: async function (product) {
                     await axios
-                        .delete("/api/product/deleteProduct/" + product.id);
+                        .delete("/api/auth/product/deleteProduct/" + product.id);
                     this.getProducts();
                 }
             }
@@ -316,4 +321,5 @@
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
     </script>
 </body>
+
 </html>

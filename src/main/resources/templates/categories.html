@@ -23,18 +23,18 @@
 			<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
 				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 					<li class="nav-item active">
-						<a class="nav-link" th:href="@{/categories}">Categories<span
+						<a class="nav-link" th:href="@{/api/auth/categories}">Categories<span
 								class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" th:href="@{/products}">Products<span class="sr-only"></span></a>
+						<a class="nav-link" th:href="@{/api/auth/products}">Products<span class="sr-only"></span></a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" th:href="@{/users}">Users<span class="sr-only"></span></a>
+						<a class="nav-link" th:href="@{/api/auth/users}">Users<span class="sr-only"></span></a>
 					</li>
 				</ul>
 				<div class="text-end">
-					<a type="button" class="btn btn-danger me-2" data-toggle="modal" data-target="#SignOff">Sing Off</a>
+					<a type="button" class="btn btn-danger me-2" data-toggle="modal" data-target="#SignOff">Sing Out</a>
 				</div>
 			</div>
 		</nav>
@@ -109,7 +109,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-						<a th:href="@{/}"> <button type="button" class="btn btn-primary">Yes</button> </a>
+						<a th:href="@{/}"> <button type="button" class="btn btn-primary" v-on:click="SignOut()">Yes</button> </a>
 					</div>
 				</div>
 			</div>
@@ -136,16 +136,21 @@
 				this.getCategories();
 			},
 			methods: {
+				SignOut: function() {
+					axios
+						.post('/api/auth/signout')
+						.then(response => (console.log(response.data)));
+				},
 				getCategories: function () {
 					axios
-						.get("/api/category/getAllCategories")
+						.get("/api/auth/category/getAllCategories")
 						.then(response => (this.categories = response.data));
 				},
 				postCategory: function (event) {
 					// Creating
 					if (this.category_id == '' || this.category_id == null) {
 						axios
-							.post("/api/category/createCategory", {
+							.post("/api/auth/category/createCategory", {
 								"name": this.category_name,
 								"description": this.category_description,
 							})
@@ -158,7 +163,7 @@
 							})
 					} else { // Updating
 						axios
-							.put("/api/category/updateCategory/" + this.category_id, {
+							.put("/api/auth/category/updateCategory/" + this.category_id, {
 								"name": this.category_name,
 								"description": this.category_description,
 							})
@@ -180,7 +185,7 @@
 				},
 				deleteCategory: async function (category) {
 					await axios
-						.delete("/api/category/deleteCategory/" + category.id);
+						.delete("/api/auth/category/deleteCategory/" + category.id);
 					this.getCategories();
 				}
 			}

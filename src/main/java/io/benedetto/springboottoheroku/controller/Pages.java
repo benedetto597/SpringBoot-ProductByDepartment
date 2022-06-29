@@ -16,18 +16,4 @@ public class Pages {
         return "register";
     }
 
-    @GetMapping("/categories") 
-    public String categories() {
-        return "categories";
-    }
-
-    @GetMapping("/users") 
-    public String users() {
-        return "users";
-    }
-
-    @GetMapping("/products") 
-    public String products() {
-        return "products";
-    }
 }

@@ -23,14 +23,14 @@
 			<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
 				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 					<li class="nav-item active">
-						<a class="nav-link" th:href="@{/categories}">Categories<span
+						<a class="nav-link" th:href="@{/api/auth/categories}">Categories<span
 								class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" th:href="@{/products}">Products<span class="sr-only"></span></a>
+						<a class="nav-link" th:href="@{/api/auth/products}">Products<span class="sr-only"></span></a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" th:href="@{/users}">Users<span class="sr-only"></span></a>
+						<a class="nav-link" th:href="@{/api/auth/users}">Users<span class="sr-only"></span></a>
 					</li>
 				</ul>
 				<div class="text-end">
@@ -61,6 +61,11 @@
 								type="text" v-model="user_last_name" />
 						</div>
 						<div class="form-group row">
+							<label for="user_name" class="col col-sm-4">User Name</label>
+							<input class="form-control col-sm-8" id="user_name" placeholder="UserName"
+								type="text" v-model="user_username" />
+						</div>
+						<div class="form-group row">
 							<label for="email" class="col col-sm-4">Email</label>
 							<input class="form-control col-sm-8" id="email" placeholder="example@mail.com"
 								type="email" v-model="user_email" />
@@ -88,6 +93,7 @@
 					<tr>
 						<th>Name</th>
 						<th>Last Name</th>
+						<th>User Name</th>
 						<th>Email</th>
 						<th>Actions</th>
 					</tr>
@@ -96,6 +102,7 @@
 					<tr v-for="user in users">
 						<td>{{ user.name }}</td>
 						<td>{{ user.last_name }}</td>
+						<td>{{ user.username }}</td>
 						<td>{{ user.email }}</td>
 						<td>
 							<button class="btn btn-primary" v-on:click="editUser(user)">Edit</button>
@@ -121,7 +128,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-						<a th:href="@{/}"> <button type="button" class="btn btn-primary">Yes</button> </a>
+						<a th:href="@{/}"> <button type="button" class="btn btn-primary" v-on:click="SignOut()">Yes</button> </a>
 					</div>
 				</div>
 			</div>
@@ -139,6 +146,7 @@
 			data() {
                 return {
                 user_id: null,
+                user_username: null,
                 user_name: null,
                 user_last_name: null,
                 user_email: null,
@@ -150,23 +158,30 @@
 				this.getUsers();
 			},
 			methods: {
+				SignOut: function() {
+					axios
+						.post('/api/auth/signout')
+						.then(response => (console.log(response.data)));
+				},
 				getUsers: function () {
 					axios
-						.get("/api/user/getAllUsers")
+						.get("/api/auth/user/getAllUsers")
 						.then(response => (this.users = response.data));
 				},
 				postUser: function (event) {
 					// Creating
 					if (this.user_id == '' || this.user_id == null) {
 						axios
-							.post("/api/user/createUser", {
+							.post("/api/auth/user/createUser", {
 								"name": this.user_name,
+								"username": this.user_username,
 								"last_name": this.user_last_name,
                                 "email": this.user_email,
                                 "password": this.user_password,
                             })
                                 .then(savedUser => {
                                 this.user_name = '';
+                                this.user_username = '';
                                 this.user_last_name = '';
                                 this.user_email = '';
                                 this.user_password = '';
@@ -175,8 +190,9 @@
                             })
 					} else { // Updating
 						axios
-							.put("/api/user/updateUser/" + this.user_id, {
+							.put("/api/auth/user/updateUser/" + this.user_id, {
 								"name": this.user_name,
+								"username": this.user_username,
 								"last_name": this.user_last_name,
                                 "email": this.user_email,
                                 "password": this.user_password,
@@ -184,6 +200,7 @@
 							.then(savedUser => {
 								this.getUsers();
 								this.user_name = '';
+								this.user_username = '';
                                 this.user_last_name = '';
                                 this.user_email = '';
                                 this.user_password = '';
@@ -193,6 +210,7 @@
 				},
 				editUser: function (user) {
 					this.user_id = user.id;
+					this.user_username = user.username;
 					this.user_name = user.name;
 					this.user_last_name = user.last_name;
 					this.user_email = user.email;
@@ -203,7 +221,7 @@
 				},
 				deleteUser: async function (user) {
 					await axios
-						.delete("/api/user/deleteUser/" + user.id);
+						.delete("/api/auth/user/deleteUser/" + user.id);
 					this.getUsers();
 				}
 			}

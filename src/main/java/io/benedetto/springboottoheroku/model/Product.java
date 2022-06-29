@@ -1,11 +1,6 @@
 package io.benedetto.springboottoheroku.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 // import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -13,7 +8,7 @@ import javax.persistence.Table;
 @Table(name = "PRODUCT")
 public class Product {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String description;
