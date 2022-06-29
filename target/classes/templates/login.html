@@ -7,49 +7,47 @@
   <!-- CSS only -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
+  
 </head>
 
 <body>
-  <div id="main">
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <img class="mx-3"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Mastercard_2019_logo.svg/1200px-Mastercard_2019_logo.svg.png"
-          alt="" width="90" height="50">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
-          aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-          <div class="navbar-nav mr-auto mt-2 mt-lg-0">
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <img class="mx-3"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Mastercard_2019_logo.svg/1200px-Mastercard_2019_logo.svg.png"
+        alt="" width="90" height="50">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+        aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <div class="navbar-nav mr-auto mt-2 mt-lg-0">
 
-          </div>
-          <div class="text-end">
-            <a type="button" class="btn btn-danger me-2" th:href="@{/}">Login</a>
-            <a type="button" class="btn btn-danger" th:href="@{/register}">Register</a>
-          </div>
         </div>
-      </nav>
-    </header>
-    <main class="form-signin w-100 m-auto">
-      <form>
-        <div class="card m-auto p-auto" style="width: 25rem; border: none; padding-top: 5rem;">
-          <h2 class="card-title h3 mb-3 fw-normal m-auto pb-3">Login</h2>
+        <div class="text-end">
+          <a type="button" class="btn btn-danger me-2" th:href="@{/}">Login</a>
+          <a type="button" class="btn btn-danger" th:href="@{/register}">Register</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main class="form-signin w-100 m-auto" id="main">
+    <form>
+      <div class="card m-auto p-auto" style="width: 25rem; border: none; padding-top: 5rem;">
+        <h2 class="card-title h3 mb-3 fw-normal m-auto pb-3">Login</h2>
 
-          <div class="form-floating">
-            <input type="text" class="form-control" id="user_name" name="user_name" placeholder="UserName"
-              v-model="user_username">
-            <label for="user_name">User Name</label>
-          </div>
-          <div class="form-floating">
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password"
-              v-model="user_password">
-            <label for="password">Password</label>
-          </div>
-          <a class="w-100 btn btn-lg btn-danger" type="submit" th:href="@{api/auth/categories}">Sign in</a>
-      </form>
-  </div>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="user_name" name="user_name" placeholder="UserName"
+            v-model="user_username">
+          <label for="user_name">User Name</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+            v-model="user_password">
+          <label for="password">Password</label>
+        </div>
+        <a class="w-100 btn btn-lg btn-danger" type="submit" th:href="@{api/auth/categories}">Sign in</a>
+    </form>
   </main>
 
   <!-- Vue imports -->
@@ -92,7 +90,5 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
     integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
   </script>
-  </div>
 </body>
-
 </html>
