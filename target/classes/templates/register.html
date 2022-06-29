@@ -53,6 +53,11 @@
           </div>
         </div>
         <div class="form-floating">
+          <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Big_Boss"
+            v-model="user_username">
+          <label for="user_name">User Name</label>
+        </div>
+        <div class="form-floating">
           <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com"
             v-model="user_email">
           <label for="email">Email address</label>
@@ -78,6 +83,7 @@
       data() {
         return {
           user_name: null,
+          user_username: null,
           user_last_name: null,
           user_email: null,
           user_password: null,
@@ -86,14 +92,16 @@
       methods: {
         postUser: function (event) {
           axios
-            .post("/api/user/createUser", {
+            .post("/api/auth/signup", {
               "name": this.user_name,
+              "username": this.user_username,
               "last_name": this.user_last_name,
               "email": this.user_email,
               "password": this.user_password,
             })
             .then(savedCategory => {
               this.user_name = '';
+              this.user_username = '';
               this.user_last_name = '';
               this.user_email = '';
               this.user_password = '';
@@ -113,5 +121,6 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
     integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
   </script>
-</body> 
+</body>
+
 </html>
