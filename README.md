@@ -188,6 +188,3 @@ ______
 
   connect heroku_935f7825dc6b73b;
   ```
-
-
-
