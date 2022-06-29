@@ -14,7 +14,6 @@
 
 ## Resultado final
 [Probar aplicación](https://productsbydepartment.herokuapp.com/)
-
 </div>
 
 _____
