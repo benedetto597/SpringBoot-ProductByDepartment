@@ -11,11 +11,10 @@
 |:---:|:---:|
 | Edgar Josué Benedetto Godoy | [Gmail](mailto:ejbg597@gmail.com) |
 
-## Resultado final
-[Probar aplicación](https://productsbydepartment.herokuapp.com/)
 
 </div>
-
+<!-- en-summary -->
+> **In English.** Technical assessment (June 2022): a products-by-department store in Java Spring Boot, built to the brief below (layered architecture, login with encrypted passwords, category and product maintenance, JSON endpoints consumed with Ajax). Code: REST controllers (`AuthApi`, `RestApi`), Spring Security configuration, JPA repositories, MySQL through Docker Compose, and a Vue + Vuetify frontend in `frontend/`. The brief and setup notes below are in Spanish. The Heroku demo is offline because Heroku ended its free tier in November 2022.
 
 _____
 _____
