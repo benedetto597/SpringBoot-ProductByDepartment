@@ -7,9 +7,9 @@
 ### Autor 
 
 
-| Nombre | Identidad | Correo |
-|:-------------:| :-----:|:-----:|
-| Edgar Josué Benedetto Godoy | `0801-1997-23600` | [Gmail](mailto:ejbg597@gmail.com) |
+| Nombre | Correo |
+|:---:|:---:|
+| Edgar Josué Benedetto Godoy | [Gmail](mailto:ejbg597@gmail.com) |
 
 ## Resultado final
 [Probar aplicación](https://productsbydepartment.herokuapp.com/)
@@ -97,8 +97,8 @@ ______
 1. En los recursos del proyecto de java
   ```
   #Mysql
-  spring.datasource.username=admin 
-  spring.datasource.password=admin
+  spring.datasource.username=<your-user> 
+  spring.datasource.password=<your-password>
   spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
   spring.datasource.url=jdbc:mysql://localhost:3306/productsApp?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
   #JPA
@@ -118,7 +118,7 @@ ______
 
 1. Ejecutar el contenedor
   ```
-  docker run --name mysqldb -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_DATABASE=productsApp -d -p 3306:3306 mysql
+  docker run --name mysqldb -e MYSQL_ROOT_PASSWORD=<your-password> -e MYSQL_DATABASE=productsApp -d -p 3306:3306 mysql
 
   docker-compose up -d
   ```
@@ -132,7 +132,7 @@ ______
   ```
   mysql -h nombre_servidor -u nombre_usuario -p nombre_base_datos
 
-  mysql -h localhost -u admin -p productsApp
+  mysql -h localhost -u <your-user> -p productsApp
   ```
 
 
@@ -140,7 +140,7 @@ ______
   ```
   docker exec -it ProductsApp mysql -uroot -p 
 
-  pass: admin
+  pass: <your-password>
 
   Cambiar zona horaria: SET GLOBAL time_zone = '-6:00';
   ```
@@ -164,25 +164,25 @@ ______
   heroku run -a productsbydepartment printenv
 
   PORT=14953
-  SPRING_DATASOURCE_USERNAME=b4bf7af203d414
-  SPRING_DATASOURCE_URL=jdbc:mysql://us-cdbr-east-05.cleardb.net/heroku_935f7825dc6b73b?password=e6b9865c&reconnect=true&user=b4bf7af203d414
-  CLEARDB_DATABASE_URL=mysql://b4bf7af203d414:e6b9865c@us-cdbr-east-05.cleardb.net/heroku_935f7825dc6b73b?reconnect=true
+  SPRING_DATASOURCE_USERNAME=<db-user>
+  SPRING_DATASOURCE_URL=jdbc:mysql://<db-host>/<db-name>?password=<db-password>&reconnect=true&user=<db-user>
+  CLEARDB_DATABASE_URL=mysql://<db-user>:<db-password>@<db-host>/<db-name>?reconnect=true
   TERM=xterm
-  JDBC_DATABASE_PASSWORD=e6b9865c
-  JDBC_DATABASE_USERNAME=b4bf7af203d414
+  JDBC_DATABASE_PASSWORD=<db-password>
+  JDBC_DATABASE_USERNAME=<db-user>
   SHLVL=0
   LD_LIBRARY_PATH=/app/.jdk/jre/lib/amd64/server:
   PS1=\[\033[01;34m\]\w\[\033[00m\] \[\033[01;32m\]$ \[\033[00m\]
-  SPRING_DATASOURCE_PASSWORD=e6b9865c
+  SPRING_DATASOURCE_PASSWORD=<db-password>
   PATH=/app/.heroku/bin:/app/.jdk/bin:/usr/local/bin:/usr/bin:/bin
   DYNO=run.5617
   _=/usr/bin/printenv
   ```
 3. Conectarse a la base de datos MySQL remota de Heroku
   ```
-  mysql -u b4bf7af203d414 -pe6b9865c -h us-cdbr-east-05.cleardb.net
+  mysql -u <db-user> -p<db-password> -h <db-host>
 
-  pass: e6b9865c
+  pass: <db-password>
 
-  connect heroku_935f7825dc6b73b;
+  connect <db-name>;
   ```
